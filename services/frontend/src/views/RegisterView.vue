@@ -60,8 +60,11 @@ export default defineComponent({
     ...mapActions(['register']),
     async submit() {
       try {
+        console.log("registering...");
         await this.register(this.user);
-        this.$router.push('/dashboard');
+        console.log("finished registering");
+        this.$router.push('/pharmacy');
+        console.log("finished pushing");
       } catch (error) {
         throw 'Username already exists. Please try again.';
       }
