@@ -10,6 +10,10 @@
           <input type="text" name="title" v-model="form.title" class="form-control" />
         </div>
         <div class="mb-3">
+          <label for="contact" class="form-label">Contact:</label>
+          <input type="text" name="contact" v-model="form.contact" class="form-control" />
+        </div>
+        <div class="mb-3">
           <label for="content" class="form-label">Content:</label>
           <textarea
             name="content"
@@ -33,6 +37,7 @@
             <div class="card-body">
               <ul>
                 <li><strong>Note Title:</strong> {{ note.title }}</li>
+                <li><strong>Note contact:</strong> {{ note.contact }}</li>
                 <li><strong>Author:</strong> {{ note.author.username }}</li>
                 <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
               </ul>
@@ -60,6 +65,7 @@ export default defineComponent({
       form: {
         title: '',
         content: '',
+        contact: '',
       },
     };
   },
