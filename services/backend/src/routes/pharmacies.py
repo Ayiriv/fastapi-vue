@@ -36,7 +36,23 @@ async def get_pharmacy(pharmacy_id: int) -> PharmacyOutSchema:
             status_code=404,
             detail="Pharmacy does not exist",
         )
+    
 
+@router.get(
+    "/pharmacy/search/{name}",
+    response_model=List[PharmacyOutSchema],
+    dependencies=[Depends(get_current_user)],
+)
+async def search_pharmacy_by_name(name: str) -> List[PharmacyOutSchema]:
+    try:
+        print(name)
+        return await crud.search_pharmacy_by_name(name)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Pharmacy does not exist",
+        )
+    
 
 @router.post(
     "/pharmacies", response_model=PharmacyOutSchema, dependencies=[Depends(get_current_user)]

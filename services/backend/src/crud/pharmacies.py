@@ -13,6 +13,11 @@ async def get_pharmacies():
 async def get_pharmacy(pharmacy_id) -> PharmacyOutSchema:
     return await PharmacyOutSchema.from_queryset_single(Pharmacies.get(id=pharmacy_id))
 
+async def search_pharmacy_by_name(pharmacy_name: str):
+    pharmacy = await Pharmacies.filter(name__icontains=pharmacy_name)
+    print(pharmacy)
+    return await PharmacyOutSchema.from_queryset(pharmacy)
+
 
 async def create_pharmacy(pharmacy, current_user) -> PharmacyOutSchema:
     pharmacy_dict = pharmacy.dict(exclude_unset=True)

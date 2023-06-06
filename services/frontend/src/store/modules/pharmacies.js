@@ -23,6 +23,15 @@ const actions = {
     let {data} = await axios.get(`pharmacy/${id}`);
     commit('setPharmacy', data);
   },
+  async searchPharmacy({commit}, name) {
+    try {
+      let {data} = await axios.get(`pharmacy/search/${name}`);
+      commit('setPharmacies', data);
+      console.log("search", data);
+    } catch (error) {
+    console.error("search-error", error);
+    }
+  },
   // eslint-disable-next-line no-empty-pattern
   async updatePharmacy({}, pharmacy) {
     await axios.patch(`pharmacy/${pharmacy.id}`, pharmacy.form);

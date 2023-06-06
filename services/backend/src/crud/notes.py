@@ -13,6 +13,10 @@ async def get_notes():
 async def get_note(note_id) -> NoteOutSchema:
     return await NoteOutSchema.from_queryset_single(Notes.get(id=note_id))
 
+async def search_notes_by_title(note_title: str):
+    notes = await Notes.filter(title__icontains=note_title)
+    return await NoteOutSchema.from_queryset(notes)
+
 
 async def create_note(note, current_user) -> NoteOutSchema:
     note_dict = note.dict(exclude_unset=True)
