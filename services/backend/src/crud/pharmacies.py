@@ -4,19 +4,23 @@ from tortoise.exceptions import DoesNotExist
 from src.database.models import Pharmacies
 from src.schemas.pharmacies import PharmacyOutSchema
 from src.schemas.token import Status
+from tortoise.queryset import QuerySet
 
 
 async def get_pharmacies():
+    print("========ALL", Pharmacies.all())
     return await PharmacyOutSchema.from_queryset(Pharmacies.all())
 
 
 async def get_pharmacy(pharmacy_id) -> PharmacyOutSchema:
     return await PharmacyOutSchema.from_queryset_single(Pharmacies.get(id=pharmacy_id))
 
+
 async def search_pharmacy_by_name(pharmacy_name: str):
-    pharmacy = await Pharmacies.filter(name__icontains=pharmacy_name)
-    print(pharmacy)
-    return await PharmacyOutSchema.from_queryset(pharmacy)
+    pharmacies = await Pharmacies.filter(name__icontains=pharmacy_name)
+    print("========NAME", pharmacy_name)
+    print("========PHAR", pharmacies)
+    return [await PharmacyOutSchema.from_queryset_single(Pharmacies.get(id=pharmacy.id)) for pharmacy in pharmacies]
 
 
 async def create_pharmacy(pharmacy, current_user) -> PharmacyOutSchema:

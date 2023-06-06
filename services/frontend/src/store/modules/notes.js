@@ -22,6 +22,7 @@ const actions = {
   async viewNote({commit}, id) {
     let {data} = await axios.get(`note/${id}`);
     commit('setNote', data);
+    console.log("view", data);
   },
   // eslint-disable-next-line no-empty-pattern
   async updateNote({}, note) {

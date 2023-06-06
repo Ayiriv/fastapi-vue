@@ -13,13 +13,17 @@
   </section>
   <div class="mb-3">
     <input type="text" placeholder="请输入关键词" name="addr" v-model="inputValue" class="form-control" />
-    <button type="search" class="btn btn-primary" @click="getpharmacy">Search</button>
+    <button @click="search" class="btn btn-primary">Search</button>
   </div>
   <div v-for="pharmacy in pharmacies" :key="pharmacy.id">
+    <div class="card" style="width: 18rem;">
+            <div class="card-body">
       <!-- 显示药店数据 -->
-      <p>{{ pharmacy.name }}</p>
-      <p>{{ pharmacy.contact }}</p>
-      <p>{{ pharmacy.addr }}</p>
+      <li>{{ pharmacy.name }}</li>
+      <li>{{ pharmacy.contact }}</li>
+      <li>{{ pharmacy.addr }}</li>
+  </div>
+  </div>
   </div>
   
 </template>
@@ -27,32 +31,34 @@
 
 
 import { defineComponent } from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'HomeView',
   data() {
     return {
       inputValue: '',
+      pharmacyList: [],
     };
   },
+  created: function() {
+    return this.$store.dispatch('getPharmacies');
+  },
   computed : {
-    isLoggedIn: function() {
-      return this.$store.getters.isAuthenticated;
-    },
-    pharmacies() {
-    return this.$store.getters.statePharmacies;
-  }
+    ...mapGetters({pharmacies: 'statePharmacies'}),
   },
   methods: {
-    async getpharmacy() {
-      try{
-        console.log(this.inputValue);
-        await this.$store.dispatch('searchPharmacy', this.inputValue);
-        console.log("finished");
-      }catch (error) {
-        console.log("error", error);
+    ...mapActions(['searchPharmacies']),
+    async search () {
+      try {
+        console.log("click", this.inputValue);
+        await this.searchPharmacies(this.inputValue);
+        this.pharmacyList = this.pharmacies;
+        console.log(this.pharmacyList);
+      } catch (error) {
+        console.log(error);
       }
-    },
+    }
   },
 });
 </script>

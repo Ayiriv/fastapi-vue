@@ -23,7 +23,7 @@ const actions = {
     let {data} = await axios.get(`pharmacy/${id}`);
     commit('setPharmacy', data);
   },
-  async searchPharmacy({commit}, name) {
+  async searchPharmacies({commit}, name) {
     try {
       let {data} = await axios.get(`pharmacy/search/${name}`);
       commit('setPharmacies', data);

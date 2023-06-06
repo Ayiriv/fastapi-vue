@@ -32,4 +32,4 @@ class Pharmacies(models.Model):
     modified_at = fields.DatetimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title}, {self.owner_id} on {self.created_at}"
+        return f"{self.name}, {self.owner_id} on {self.created_at}"
