@@ -13,24 +13,7 @@
         <input type="password" name="password" v-model="user.password" class="form-control" />
       </div>
       
-      <hr /> <!-- 分隔线 -->
-      <br />
-      <br />
-      <!-- 药店信息 -->
-      <h4>药店信息</h4>
-      <br />
-      <div class="mb-3">
-        <label for="pharmacyName" class="form-label">药店名称:</label>
-        <input type="text" name="pharmacyName" v-model="pharmacy.name" class="form-control" />
-      </div>
-      <div class="mb-3">
-        <label for="pharmacyContact" class="form-label">联系方式:</label>
-        <input type="text" name="pharmacyContact" v-model="pharmacy.contact" class="form-control" />
-      </div>
-      <div class="mb-3">
-        <label for="pharmacyAddress" class="form-label">地址:</label>
-        <input type="text" name="pharmacyAddress" v-model="pharmacy.address" class="form-control" />
-      </div>
+      <hr />
       
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

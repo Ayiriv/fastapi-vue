@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <h1>填写药店信息</h1>
+      <h1>添加药店信息</h1>
       <hr/><br/>
 
       <form @submit.prevent="submit">
@@ -18,7 +18,7 @@
           <input type="text" name="addr" v-model="form.addr" class="form-control" />
         </div>
         <br/>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">添加</button>
       </form>
     </section>
 
@@ -32,7 +32,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
-  name: 'PharmacyView',
+  name: 'AddPharmacy',
   data() {
     return {
       form: {
@@ -52,7 +52,7 @@ export default defineComponent({
     ...mapActions(['createPharmacy']),
     async submit() {
       await this.createPharmacy(this.form);
-      this.$router.push('/');
+      this.$router.push('/profile');
     },
   },
 });

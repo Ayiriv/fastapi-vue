@@ -1,32 +1,42 @@
 <template>
-  <section>
-    <p>This site is built with FastAPI and Vue.</p>
-
-    <div v-if="isLoggedIn" id="logout">
-      <p id="logout">Click <a href="/dashboard">here</a> to view all notes.</p>
+  <div>
+    <div class="logo">
+      <img src="../assets/logo.png" alt="Logo" />
+      <h2>药品资源查询系统</h2>
     </div>
-    <p v-else>
-      <span><a href="/register">Register</a></span>
-      <span> or </span>
-      <span><a href="/login">Log In</a></span>
-    </p>
-  </section>
-  <div class="mb-3">
-    <input type="text" placeholder="请输入关键词" name="addr" v-model="inputValue" class="form-control" />
-    <button @click="search" class="btn btn-primary">Search</button>
+    <br />
+    <div class="search-bar">
+      <input type="text" placeholder="请输入关键词" name="search" v-model="inputValue" class="form-control search-input"/>
+      <br /><br />
+      <button @click="search" class="btn btn-primary">Search</button>
+    </div>
   </div>
-  <div v-for="pharmacy in pharmacies" :key="pharmacy.id">
-    <div class="card" style="width: 18rem;">
-            <div class="card-body">
-      <!-- 显示药店数据 -->
-      <li>{{ pharmacy.name }}</li>
-      <li>{{ pharmacy.contact }}</li>
-      <li>{{ pharmacy.addr }}</li>
-  </div>
-  </div>
-  </div>
-  
 </template>
+
+<style scoped>
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 200px;
+  height: 200px;
+}
+
+.logo h1 {
+  margin-top: 10px;
+}
+
+.search-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+    text-align: center;  
+  }
+</style>
 <script>
 
 
@@ -51,10 +61,11 @@ export default defineComponent({
     ...mapActions(['searchPharmacies']),
     async search () {
       try {
-        console.log("click", this.inputValue);
-        await this.searchPharmacies(this.inputValue);
-        this.pharmacyList = this.pharmacies;
-        console.log(this.pharmacyList);
+        // console.log("click", this.inputValue);
+        // await this.searchPharmacies(this.inputValue);
+        // this.pharmacyList = this.pharmacies;
+        // console.log(this.pharmacyList);
+        this.$router.push(`/search/${this.inputValue}`);
       } catch (error) {
         console.log(error);
       }

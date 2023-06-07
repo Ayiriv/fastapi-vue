@@ -7,6 +7,9 @@ import ProfileView from '@/views/ProfileView.vue';
 import NoteView from '@/views/NoteView.vue';
 import EditNoteView from '@/views/EditNoteView.vue';
 import PharmacyView from '@/views/PharmacyView.vue';
+import AddPharmacy from '@/views/AddPharmacyView.vue';
+import EditPharmacy from '@/views/EditPharmacyView.vue';
+import SearchView from '@/views/SearchView.vue';
 import store from '@/store'; // NEW
 
 
@@ -57,6 +60,24 @@ const routes = [
     component: EditNoteView,
     meta: { requiresAuth: true },
     props: true,
+  },
+  {
+    path: '/editpharmacy/:id',
+    name: 'EditPharmacy',
+    component: EditPharmacy,
+    meta: { requiresAuth: true },
+    props: true,
+  },
+  {
+    path: '/addpharmacy',
+    name: 'AddPharmacy',
+    component: AddPharmacy,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/search/:query',
+    name: 'Search',
+    component: SearchView,
   },
 ]
 

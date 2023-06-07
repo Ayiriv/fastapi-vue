@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/">FastAPI + Vue</a>
+        <a class="navbar-brand" href="/">药品资源查询系统</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,9 +10,6 @@
           <ul v-if="isLoggedIn" class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
               <router-link class="nav-link" to="/">Home</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/profile">My Profile</router-link>

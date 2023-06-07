@@ -8,7 +8,6 @@ from tortoise.queryset import QuerySet
 
 
 async def get_pharmacies():
-    print("========ALL", Pharmacies.all())
     return await PharmacyOutSchema.from_queryset(Pharmacies.all())
 
 
@@ -18,8 +17,11 @@ async def get_pharmacy(pharmacy_id) -> PharmacyOutSchema:
 
 async def search_pharmacy_by_name(pharmacy_name: str):
     pharmacies = await Pharmacies.filter(name__icontains=pharmacy_name)
-    print("========NAME", pharmacy_name)
-    print("========PHAR", pharmacies)
+    return [await PharmacyOutSchema.from_queryset_single(Pharmacies.get(id=pharmacy.id)) for pharmacy in pharmacies]
+
+
+async def get_pharmacy_by_owner(owner_id: int):# new: str->int
+    pharmacies = await Pharmacies.filter(owner_id=owner_id).all()
     return [await PharmacyOutSchema.from_queryset_single(Pharmacies.get(id=pharmacy.id)) for pharmacy in pharmacies]
 
 
@@ -55,4 +57,18 @@ async def delete_pharmacy(pharmacy_id, current_user) -> Status:
             raise HTTPException(status_code=404, detail=f"Pharmacy {pharmacy_id} not found")
         return Status(message=f"Deleted pharmacy {pharmacy_id}")
 
+    raise HTTPException(status_code=403, detail=f"Not ownerized to delete")
+
+
+async def delete_pharmacies_by_owner(owner_id, current_user) -> Status:
+    try:
+        pharmacies = await Pharmacies.filter(owner_id=owner_id).all()
+    except DoesNotExist:
+        raise HTTPException(status_code=404, detail=f"owner id {owner_id} not found")
+    
+    if owner_id == current_user.id:
+        for pharmacy in pharmacies:
+            await pharmacy.delete()
+        return Status(message="Pharmacies deleted successfully.")
+    
     raise HTTPException(status_code=403, detail=f"Not ownerized to delete")

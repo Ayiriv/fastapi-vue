@@ -1,49 +1,50 @@
 <template>
-    <div>
-      <section>
-        <h1>Search Notes</h1>
-        <hr /><br />
-  
-        <form @submit.prevent="search">
-          <div class="mb-3">
-            <label for="searchTerm" class="form-label">Search Term:</label>
-            <input type="text" name="searchTerm" v-model="searchTerm" class="form-control" />
-          </div>
-          <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-      </section>
-  
+  <div>
+    <div class="search-bar">
+      <input type="text" placeholder="请输入关键词" v-model="inputValue" class="form-control search-input" />
       <br /><br />
-  
-      <section>
-        <h1>Search Results</h1>
-        <hr /><br />
-  
-        <div v-if="searchResults.length">
-          <div v-for="result in searchResults" :key="result.id" class="notes">
+      <button @click="search" class="btn btn-primary">Search</button>
+    </div>
+    <div class="search-results" v-if="searchResults && searchResults.length">
+      <h2>搜索结果</h2>
+      <hr /><br />
+        <!-- <div class="result-item">
+          <div v-for="result in searchResults" :key="result.id" class="card">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
-                <ul>
-                  <li><strong>Note Title:</strong> {{ result.title }}</li>
-                  <li><strong>Note Contact:</strong> {{ result.contact }}</li>
-                  <li><strong>Author:</strong> {{ result.author.username }}</li>
-                  <li><router-link :to="{ name: 'Note', params: { id: result.id } }">View</router-link></li>
-                </ul>
+                <p><strong>药店名:</strong> {{ result.name }}</p>
+                <p><strong>联系方式:</strong> {{ result.contact }}</p>
+                <p><strong>地址:</strong> {{ result.addr }}</p>
               </div>
             </div>
-            <br />
           </div>
-        </div>
-  
-        <div v-else>
-          <p>No search results found.</p>
-        </div>
-      </section>
+        </div> -->
+        <table class="table table-bordered table-striped">
+          <!-- 在这里添加表格的列和行来显示搜索结果 -->
+          <!-- 使用 v-for 指令来显示你的搜索结果 -->
+          <tr v-for="result in searchResults" :key="result.id">
+            <td>{{ result.name }}</td>
+            <td>{{ result.contact }}</td>
+            <td>{{ result.addr }}</td>
+          </tr>
+        </table>
     </div>
-  </template>
+  </div>
+</template>
+
+<style>
+.result-item {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 0 0 18rem;
+  margin: 10px;
+}
+</style>  
   
   <script>
-  
   import { defineComponent } from 'vue';
   import { mapGetters, mapActions } from 'vuex';
   
@@ -51,18 +52,36 @@
     name: 'SearchView',
     data() {
       return {
-        searchTerm: '',
+        inputValue: '',
+        searchResults: [],
       };
     },
-    computed: {
-      ...mapGetters({ searchResults: 'stateSearchResults' }),
+    created: async function() {
+      // 从路由参数中获取搜索关键字
+      this.inputValue = this.$route.params.query;
+  
+      // 执行搜索
+      await this.search();
+    },
+    computed : {
+      ...mapGetters({pharmacies: 'statePharmacies'}),
     },
     methods: {
-      ...mapActions(['searchNotes']),
-      async search() {
-        await this.searchNotes(this.searchTerm);
-      },
+      ...mapActions(['searchPharmacies']),
+      async search () {
+        try {
+          console.log("click", this.inputValue);
+          await this.searchPharmacies(this.inputValue);
+          this.searchResults = this.pharmacies;
+          console.log(this.searchResults);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
   });
   </script>
+  
+  <!-- 这里是你的样式代码 -->
+  
   

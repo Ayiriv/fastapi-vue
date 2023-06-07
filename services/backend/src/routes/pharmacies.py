@@ -54,6 +54,22 @@ async def search_pharmacy_by_name(name: str) -> List[PharmacyOutSchema]:
         )
     
 
+@router.get(
+    "/pharmacy/by-owner/{owner_id}",
+    response_model=List[PharmacyOutSchema],
+    dependencies=[Depends(get_current_user)],
+)
+async def get_pharmacy_by_owner(owner_id: int) -> List[PharmacyOutSchema]: # new :str->int 
+    try:
+        print(owner_id)
+        return await crud.get_pharmacy_by_owner(owner_id)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Pharmacy does not exist",
+        )
+    
+
 @router.post(
     "/pharmacies", response_model=PharmacyOutSchema, dependencies=[Depends(get_current_user)]
 )
@@ -87,3 +103,16 @@ async def delete_pharmacy(
     pharmacy_id: int, current_user: UserOutSchema = Depends(get_current_user)
 ):
     return await crud.delete_pharmacy(pharmacy_id, current_user)
+
+
+@router.delete(
+    "/pharmacy/by-owner/{owner_id}",
+    response_model=Status,
+    responses={404: {"model": HTTPNotFoundError}},
+    dependencies=[Depends(get_current_user)],
+)
+async def delete_pharmacies_by_owner(
+    owner_id: int, current_user: UserOutSchema = Depends(get_current_user)
+):
+    return await crud.delete_pharmacies_by_owner(owner_id, current_user)
+
