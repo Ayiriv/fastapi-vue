@@ -11,6 +11,9 @@ async def init_data():
         {"name": "对乙酰氨基酚", "symptom": "退烧镇痛"},
         {"name": "中药药材", "symptom": "-"},
         {"name": "阿司匹林", "symptom": "退烧镇痛"},
+        {"name": "氯雷他定", "symptom": "抗过敏"},
+        {"name": "头孢丙烯", "symptom": "消炎"},
+        {"name": "红霉素", "symptom": "抗生素"},
     ]
     ingredients = []
     brands = []
@@ -22,6 +25,7 @@ async def init_data():
     initial_brands = [
         {"name": "芬必得"}, {"name": "泰诺林"},
         {"name": "以岭"}, {"name": "拜耳"},
+        {"name": "仁和"}, {"name": "银力舒"}, {"name": "恒健"}
     ]
     for brand in initial_brands:
         br, _ = await Brand.get_or_create(**brand)
@@ -33,6 +37,9 @@ async def init_data():
         {"name": "对乙酰氨基酚混悬滴剂", "type": "滴剂", "ingredients": ingredients[1], "prescription": "N", "brand": brands[1]},
         {"name": "连花清瘟胶囊", "type": "胶囊", "ingredients": ingredients[2], "prescription": "N", "brand": brands[2]},
         {"name": "拜阿司匹灵肠溶片", "type": "片剂", "ingredients": ingredients[3], "prescription": "N", "brand": brands[3]},
+        {"name": "氯雷他定片", "type": "片剂", "ingredients": ingredients[4], "prescription": "N", "brand": brands[4]},
+        {"name": "头孢丙烯分散片", "type": "片剂", "ingredients": ingredients[5], "prescription": "N", "brand": brands[5]},
+        {"name": "红霉素软膏", "type": "膏状", "ingredients": ingredients[6], "prescription": "N", "brand": brands[6]}
     ]
     for medicine in initial_medicines:
         await Medicine.get_or_create(**medicine)

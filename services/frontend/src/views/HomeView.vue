@@ -7,15 +7,16 @@
     <br />
     <div class="search-bar">
       <input type="text" placeholder="请输入关键词" name="search" v-model="inputValue" class="form-control search-input"/>
+      <br />
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="ph" v-model="selectedOption"> 药店
-      </label>
+      </label>&nbsp;
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="md" v-model="selectedOption"> 药品
       </label>
 
       <br /><br />
-      <button @click="search" class="btn btn-primary">Search</button>
+      <button @click="search" class="btn btn-primary">搜索</button>
     </div>
   </div>
 </template>
@@ -63,10 +64,6 @@ export default defineComponent({
     ...mapActions(['searchPharmacies']),
     async search () {
       try {
-        // console.log("click", this.inputValue);
-        // await this.searchPharmacies(this.inputValue);
-        // this.pharmacyList = this.pharmacies;
-        // console.log(this.pharmacyList);
         this.$router.push(`/search/${this.selectedOption}/${this.inputValue}`);
       } catch (error) {
         console.log(error);

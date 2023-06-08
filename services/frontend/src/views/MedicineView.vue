@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>药店信息</h2>
+    <h3>药店信息</h3>
     <hr/><br/>
     <div>
       <p><strong>药店名:</strong> <span>{{ pharmacy.name }}</span></p>
@@ -8,11 +8,12 @@
       <p><strong>地址:</strong> <span>{{ pharmacy.addr }}</span></p>
     </div>
   </section>
-  <hr/><br/><br/>
+  <br/><br/>
   <section>
-    <h2>在售药品</h2>&nbsp;&nbsp;<router-link :to="{name: 'AddOnsaleMedicine', params:{id: this.pharmacyId}}" class="btn btn-primary">添加</router-link>
-
-    <hr/><br/>
+    <h3>在售药品</h3>
+    <hr/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<router-link :to="{name: 'AddOnsaleMedicine', params:{id: this.pharmacyId}}" class="btn btn-primary">添加</router-link>
+    <br/><br/><br/>
     <div v-if="onsales && onsales.length">
         <div v-for="onsale in onsales" :key="onsale.id">
           <div class="card" style="width: 18rem;">
@@ -22,7 +23,7 @@
                 <p><strong>价格:</strong> {{ onsale.price }}</p>
                 <p>
                   <router-link :to="{name: 'EditOnsale', params:{id: onsale.id}}" class="btn btn-primary">编辑</router-link>&nbsp;&nbsp;
-                  <button @click="removeOnsale(onsale.id)" class="btn btn-secondary">删除</button>&nbsp;&nbsp;
+                  <button @click="removeOnsale(onsale.id)" class="btn btn-danger">删除</button>&nbsp;&nbsp;
                 </p>
             </div>
         </div>
@@ -31,9 +32,11 @@
     </div>
   </section>
   <section>
-    <h2>预售药品</h2>&nbsp;&nbsp;<router-link :to="{name: 'AddPresaleMedicine', params:{id: this.pharmacyId}}" class="btn btn-primary">添加</router-link>
-
-    <hr/><br/>
+    <br/><br/>
+    <h3>预售药品</h3>
+    <hr/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<router-link :to="{name: 'AddPresaleMedicine', params:{id: this.pharmacyId}}" class="btn btn-primary">添加</router-link>
+    <br/><br/><br/>
     <div v-if="presales && presales.length">
         <div v-for="presale in presales" :key="presale.id">
           <div class="card" style="width: 18rem;">
@@ -44,7 +47,7 @@
                 <p><strong>到货日期:</strong> {{ presale.arrive }}</p>
                 <p>
                   <router-link :to="{name: 'EditPresale', params:{id: presale.id}}" class="btn btn-primary">编辑</router-link>&nbsp;&nbsp;
-                  <button @click="removePresale(presale.id)" class="btn btn-secondary">删除</button>&nbsp;&nbsp;
+                  <button @click="removePresale(presale.id)" class="btn btn-danger">删除</button>&nbsp;&nbsp;
                 </p>
             </div>
         </div>

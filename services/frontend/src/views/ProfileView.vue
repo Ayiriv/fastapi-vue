@@ -1,18 +1,18 @@
 <template>
   <section>
-    <h2>基本信息</h2>
-    <hr/><br/>
+    <h3>基本信息</h3>
+    <hr/>
     <div>
       <p><strong>Username:</strong> <span>{{ user.username }}</span></p>
-      <p><button @click="deleteAccount()" class="btn btn-primary">Delete Account</button></p>
+      <p><button @click="deleteAccount()" class="btn btn-danger">Delete Account</button></p>
     </div>
   </section>
-  <hr/><br/><br/>
+  <br/><br/>
   <section>
-    <h2>药店信息</h2>
-    <hr/><br/>
-    <p><router-link :to="{name: 'AddPharmacy'}" class="btn btn-primary">添加</router-link></p>
-    <hr/><br/>
+    <h3>药店信息</h3>
+    <hr/>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<router-link :to="{name: 'AddPharmacy'}" class="btn btn-primary">添加</router-link></p>
+    <br/>
     <div v-if="mypharmacies && mypharmacies.length">
         <div v-for="pharmacy in mypharmacies" :key="pharmacy.id" class="pharmacies">
           <div class="card" style="width: 18rem;">
@@ -21,8 +21,8 @@
                 <p><strong>联系方式:</strong> {{ pharmacy.contact }}</p>
                 <p><strong>地址:</strong> {{ pharmacy.addr }}</p>
                 <p><router-link :to="{name: 'EditPharmacy', params:{id: pharmacy.id}}" class="btn btn-primary">编辑</router-link>&nbsp;&nbsp;
-                  <button @click="removePharmacy(pharmacy.id)" class="btn btn-secondary">删除</button>&nbsp;&nbsp;
-                  <router-link :to="{name: 'Medicine', params:{id: pharmacy.id}}" class="btn btn-primary">更新药品</router-link>
+                  <button @click="removePharmacy(pharmacy.id)" class="btn btn-danger">删除</button>&nbsp;&nbsp;
+                  <router-link :to="{name: 'Medicine', params:{id: pharmacy.id}}" class="btn btn-success">更新药品</router-link>
                 </p>
             </div>
           </div>

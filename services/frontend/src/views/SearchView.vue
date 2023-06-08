@@ -1,30 +1,27 @@
 <template>
   <div>
     <div class="search-bar">
-      <input type="text" placeholder="请输入关键词" v-model="inputValue" class="form-control search-input" />
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <img src="../assets/logo.png" alt="Logo" class="logo-image">&nbsp;&nbsp;
+        </div>
+        <input type="text" placeholder="请输入关键词" v-model="inputValue" class="form-control search-input" />
+      </div>
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="ph" v-model="selectedOption"> 药店
-      </label>
+      </label>&nbsp;&nbsp;
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="md" v-model="selectedOption"> 药品
       </label>
       <br /><br />
-      <button @click="search" class="btn btn-primary">Search</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button @click="search" class="btn btn-primary">搜索</button>
     </div>
-    
-      <h2>搜索结果</h2>
-      <hr /><br />
-        <!-- <div class="result-item">
-          <div v-for="result in searchResults" :key="result.id" class="card">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <p><strong>药店名:</strong> {{ result.name }}</p>
-                <p><strong>联系方式:</strong> {{ result.contact }}</p>
-                <p><strong>地址:</strong> {{ result.addr }}</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
+    <br /><br />
+      <h4>搜索结果</h4>
+      <hr />
 
       <div class="search-results" v-if="searchResults && searchResults.length">
         <div class="result-item">
@@ -40,6 +37,8 @@
       </div>
       </div>
         <div class="search-results" v-if="searchResultsOn && searchResultsOn.length">
+          <h5>现货药品</h5>
+          <hr />
           <div class="result-item">
           <div v-for="result in searchResultsOn" :key="result.id" class="card">
             <div class="card" style="width: 18rem;">
@@ -47,12 +46,16 @@
                 <p><strong>药品:</strong>{{ result.Mid.name }}</p>
                 <p><strong>数量:</strong>{{ result.amount }}件</p>
                 <p><strong>价格:</strong>{{ result.price }}元</p>
+                <p><strong>店铺名称:</strong>{{ result.Pid.name }}</p>
+                <p><strong>店铺地址:</strong>{{ result.Pid.addr }}</p>
               </div>
             </div>
           </div>
         </div>
         </div>
         <div class="search-results" v-if="searchResultsPre && searchResultsPre.length">
+          <h5>在途药品</h5>
+          <hr />
           <div class="result-item">
           <div v-for="result in searchResultsPre" :key="result.id" class="card">
             <div class="card" style="width: 18rem;">
@@ -61,6 +64,8 @@
                 <p><strong>数量:</strong>{{ result.amount }}件</p>
                 <p><strong>价格:</strong>{{ result.price }}元</p>
                 <p><strong>到货时间:</strong>{{ result.arrive }}</p>
+                <p><strong>店铺名称:</strong>{{ result.Pid.name }}</p>
+                <p><strong>店铺地址:</strong>{{ result.Pid.addr }}</p>
               </div>
             </div>
           </div>
@@ -79,6 +84,11 @@
 .card {
   flex: 0 0 18rem;
   margin: 10px;
+}
+
+.logo-image {
+  width: 50px;
+  height: 50px;
 }
 </style>  
   

@@ -2,10 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
-import DashboardView from '@/views/DashboardView.vue';
 import ProfileView from '@/views/ProfileView.vue';
-import NoteView from '@/views/NoteView.vue';
-import EditNoteView from '@/views/EditNoteView.vue';
 import PharmacyView from '@/views/PharmacyView.vue';
 import AddPharmacy from '@/views/AddPharmacyView.vue';
 import EditPharmacy from '@/views/EditPharmacyView.vue';
@@ -35,12 +32,6 @@ const routes = [
     component: LoginView,
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: DashboardView,
-    meta: { requiresAuth: true },
-  },
-  {
     path: '/pharmacy',
     name: 'Pharmacy',
     component: PharmacyView,
@@ -51,20 +42,6 @@ const routes = [
     name: 'Profile',
     component: ProfileView,
     meta: { requiresAuth: true },
-  },
-  {
-    path: '/note/:id',
-    name: 'Note',
-    component: NoteView,
-    meta: { requiresAuth: true },
-    props: true,
-  },
-  {
-    path: '/editnote/:id',
-    name: 'EditNote',
-    component: EditNoteView,
-    meta: { requiresAuth: true },
-    props: true,
   },
   {
     path: '/editpharmacy/:id',

@@ -2,7 +2,7 @@
   <section>
     <form @submit.prevent="submit">
       <!-- 账号信息 -->
-      <h4>账号信息</h4>
+      <h4>注册</h4>
       <br />
       <div class="mb-3">
         <label for="username" class="form-label">Username:</label>
