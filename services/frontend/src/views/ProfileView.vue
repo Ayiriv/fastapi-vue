@@ -17,13 +17,13 @@
         <div v-for="pharmacy in mypharmacies" :key="pharmacy.id" class="pharmacies">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
-              <ul>
-                <li><strong>药店名:</strong> {{ pharmacy.name }}</li>
-                <li><strong>联系方式:</strong> {{ pharmacy.contact }}</li>
-                <li><strong>地址:</strong> {{ pharmacy.addr }}</li>
-                <li><router-link :to="{name: 'EditPharmacy', params:{id: pharmacy.id}}" class="btn btn-primary">编辑</router-link></li>
-                <li><button @click="removePharmacy(pharmacy.id)" class="btn btn-secondary">删除</button></li>
-              </ul>
+                <p><strong>药店名:</strong> {{ pharmacy.name }}</p>
+                <p><strong>联系方式:</strong> {{ pharmacy.contact }}</p>
+                <p><strong>地址:</strong> {{ pharmacy.addr }}</p>
+                <p><router-link :to="{name: 'EditPharmacy', params:{id: pharmacy.id}}" class="btn btn-primary">编辑</router-link>&nbsp;&nbsp;
+                  <button @click="removePharmacy(pharmacy.id)" class="btn btn-secondary">删除</button>&nbsp;&nbsp;
+                  <router-link :to="{name: 'Medicine', params:{id: pharmacy.id}}" class="btn btn-primary">更新药品</router-link>
+                </p>
             </div>
           </div>
           <br/>

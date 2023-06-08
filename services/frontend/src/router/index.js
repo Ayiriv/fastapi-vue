@@ -10,6 +10,8 @@ import PharmacyView from '@/views/PharmacyView.vue';
 import AddPharmacy from '@/views/AddPharmacyView.vue';
 import EditPharmacy from '@/views/EditPharmacyView.vue';
 import SearchView from '@/views/SearchView.vue';
+import MedicineView from '@/views/MedicineView.vue';
+import EditOnsale from '@/views/EditOnsaleView.vue';
 import store from '@/store'; // NEW
 
 
@@ -78,6 +80,19 @@ const routes = [
     path: '/search/:query',
     name: 'Search',
     component: SearchView,
+  },
+  {
+    path: '/medicine/:id',
+    name: 'Medicine',
+    component: MedicineView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/editonsale/:id',
+    name: 'EditOnsale',
+    component: EditOnsale,
+    meta: { requiresAuth: true },
+    props: true,
   },
 ]
 

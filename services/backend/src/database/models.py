@@ -59,7 +59,7 @@ class MedicineOnsale(models.Model):
     Pid = fields.ForeignKeyField('models.Pharmacies', related_name='medicine_onsales')
     Mid = fields.ForeignKeyField('models.Medicine', related_name='medicine_onsales')
     amount = fields.IntField()
-    price = fields.IntField()
+    price = fields.FloatField()
     created_at = fields.DatetimeField(auto_now_add=True)
     modified_at = fields.DatetimeField(auto_now=True)
 
@@ -71,7 +71,7 @@ class MedicinePresale(models.Model):
     Pid = fields.ForeignKeyField('models.Pharmacies', related_name='medicine_presales')
     Mid = fields.ForeignKeyField('models.Medicine', related_name='medicine_presales')
     amount = fields.IntField()
-    price = fields.IntField()
+    price = fields.FloatField()
     arrive = fields.DatetimeField()
     created_at = fields.DatetimeField(auto_now_add=True)
     modified_at = fields.DatetimeField(auto_now=True)

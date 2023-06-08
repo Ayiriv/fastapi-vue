@@ -15,6 +15,5 @@ OnsaleOutSchema = pydantic_model_creator(
 )
 
 class UpdateOnsale(BaseModel):
-    name: Optional[str]
-    contact: Optional[str]
-    addr: Optional[str]
+    amount: Optional[int]
+    price: Optional[float]

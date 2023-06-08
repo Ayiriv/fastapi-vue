@@ -41,7 +41,7 @@
 
 
 import { defineComponent } from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'HomeView',
@@ -50,12 +50,6 @@ export default defineComponent({
       inputValue: '',
       pharmacyList: [],
     };
-  },
-  created: function() {
-    return this.$store.dispatch('getPharmacies');
-  },
-  computed : {
-    ...mapGetters({pharmacies: 'statePharmacies'}),
   },
   methods: {
     ...mapActions(['searchPharmacies']),

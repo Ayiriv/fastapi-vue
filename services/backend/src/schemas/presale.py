@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 
 from pydantic import BaseModel
 from tortoise.contrib.pydantic import pydantic_model_creator
@@ -15,6 +16,6 @@ PresaleOutSchema = pydantic_model_creator(
 )
 
 class UpdatePresale(BaseModel):
-    name: Optional[str]
-    contact: Optional[str]
-    addr: Optional[str]
+    amount: Optional[int]
+    price: Optional[float]
+    arrive: Optional[datetime]
