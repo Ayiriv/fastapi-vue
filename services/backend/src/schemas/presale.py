@@ -8,7 +8,7 @@ from src.database.models import MedicinePresale
 
 
 PresaleInSchema = pydantic_model_creator(
-    MedicinePresale, name="PresaleIn", exclude=["Pid_id","Mid_id"], exclude_readonly=True)
+    MedicinePresale, name="PresaleIn", exclude_readonly=True)
 PresaleOutSchema = pydantic_model_creator(
     MedicinePresale, name="Presale", exclude =[
       "modified_at", "created_at"

@@ -2,10 +2,16 @@
   <div>
     <div class="search-bar">
       <input type="text" placeholder="请输入关键词" v-model="inputValue" class="form-control search-input" />
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="ph" v-model="selectedOption"> 药店
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="md" v-model="selectedOption"> 药品
+      </label>
       <br /><br />
       <button @click="search" class="btn btn-primary">Search</button>
     </div>
-    <div class="search-results" v-if="searchResults && searchResults.length">
+    
       <h2>搜索结果</h2>
       <hr /><br />
         <!-- <div class="result-item">
@@ -19,16 +25,48 @@
             </div>
           </div>
         </div> -->
-        <table class="table table-bordered table-striped">
-          <!-- 在这里添加表格的列和行来显示搜索结果 -->
-          <!-- 使用 v-for 指令来显示你的搜索结果 -->
-          <tr v-for="result in searchResults" :key="result.id">
-            <td>{{ result.name }}</td>
-            <td>{{ result.contact }}</td>
-            <td>{{ result.addr }}</td>
-          </tr>
-        </table>
-    </div>
+
+      <div class="search-results" v-if="searchResults && searchResults.length">
+        <div class="result-item">
+        <div v-for="result in searchResults" :key="result.id" class="card">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <p><strong>药店名:</strong> {{ result.name }}</p>
+              <p><strong>联系方式:</strong> {{ result.contact }}</p>
+              <p><strong>地址:</strong> {{ result.addr }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+        <div class="search-results" v-if="searchResultsOn && searchResultsOn.length">
+          <div class="result-item">
+          <div v-for="result in searchResultsOn" :key="result.id" class="card">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <p><strong>药品:</strong>{{ result.Mid.name }}</p>
+                <p><strong>数量:</strong>{{ result.amount }}件</p>
+                <p><strong>价格:</strong>{{ result.price }}元</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="search-results" v-if="searchResultsPre && searchResultsPre.length">
+          <div class="result-item">
+          <div v-for="result in searchResultsPre" :key="result.id" class="card">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <p><strong>药品:</strong>{{ result.Mid.name }}</p>
+                <p><strong>数量:</strong>{{ result.amount }}件</p>
+                <p><strong>价格:</strong>{{ result.price }}元</p>
+                <p><strong>到货时间:</strong>{{ result.arrive }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    
   </div>
 </template>
 
@@ -54,6 +92,9 @@
       return {
         inputValue: '',
         searchResults: [],
+        searchResultsOn: [],
+        searchResultsPre: [],
+        selectedOption: this.$route.params.type
       };
     },
     created: async function() {
@@ -64,18 +105,35 @@
       await this.search();
     },
     computed : {
-      ...mapGetters({pharmacies: 'statePharmacies'}),
+      ...mapGetters({pharmacies: 'statePharmacies', onsales: 'stateOnsales', preonsales: 'statePresales'}),
     },
     methods: {
-      ...mapActions(['searchPharmacies']),
+      ...mapActions(['searchPharmacies', 'searchOnsales', 'searchPresales']),
       async search () {
-        try {
-          console.log("click", this.inputValue);
-          await this.searchPharmacies(this.inputValue);
-          this.searchResults = this.pharmacies;
-          console.log(this.searchResults);
-        } catch (error) {
-          console.log(error);
+        this.searchResults = [];
+        this.searchResultsOn = [];
+        this.searchResultsPre = [];
+        if(this.selectedOption == 'ph') {
+          try {
+            console.log("click1", this.inputValue);
+            await this.searchPharmacies(this.inputValue);
+            this.searchResults = this.pharmacies;
+            console.log(this.searchResults);
+          } catch (error) {
+            console.log(error);
+          }
+        } else if(this.selectedOption == 'md'){
+          try {
+            console.log("click2", this.inputValue);
+            await this.searchOnsales(this.inputValue);
+            await this.searchPresales(this.inputValue);
+            this.searchResultsOn = this.onsales;
+            this.searchResultsPre = this.preonsales;
+            console.log('s1', this.searchResults);
+            console.log('s2', this.searchResultsSub);
+          } catch (error) {
+            console.log(error);
+          }
         }
       }
     },

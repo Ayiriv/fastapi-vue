@@ -16,7 +16,7 @@ async def get_presale(presale_id) -> PresaleOutSchema:
 
 
 async def search_presale_by_name(presale_name: str):
-    presales = await MedicinePresale.filter(Mid_name__icontains=presale_name)
+    presales = await MedicinePresale.filter(Mid__name__icontains=presale_name)
     return [await PresaleOutSchema.from_queryset_single(MedicinePresale.get(id=presale.id)) for presale in presales]
 
 
@@ -69,4 +69,11 @@ async def delete_presales_by_pharmacy(pharmacy_id) -> Status:
         await presale.delete()
     return Status(message="MedicinePresale deleted successfully.")
         
+
+async def check_presale_exists(Mid: int) -> bool:
+    try:
+        count = await MedicinePresale.filter(Mid_id=Mid).count()
+        return count > 0
+    except DoesNotExist:
+        raise HTTPException(status_code=404, detail=f"medicine id {Mid} not found")
     

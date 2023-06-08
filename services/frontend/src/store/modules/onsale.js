@@ -3,13 +3,15 @@ import axios from 'axios';
 const state = {
   onsales: null,
   onsale: null,
-  myOnsales: null
+  myOnsales: null,
+  check: null,
 };
 
 const getters = {
   stateOnsales: state => state.onsales,
   stateOnsale: state => state.onsale,
   stateMyOnsales: state => state.myOnsales,
+  stateCheck: state => state.check,
 };
 
 const actions = {
@@ -35,6 +37,10 @@ const actions = {
     commit('setMyOnsales', data);
     console.log("get by pharmacy", data);
   },
+  async checkOnsalesExistence({commit}, medicine_id) {
+    let {data} = await axios.get(`onsale/exist/${medicine_id}`);
+    commit('setCheck', data);
+  },
   // eslint-disable-next-line no-empty-pattern
   async updateOnsale({}, onsale) {
     await axios.patch(`onsale/${onsale.id}`, onsale.form);
@@ -58,6 +64,9 @@ const mutations = {
   },
   setMyOnsales(state, myOnsales){
     state.myOnsales = myOnsales;
+  },
+  setCheck(state, check){
+    state.check = check;
   },
 };
 

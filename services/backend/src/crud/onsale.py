@@ -16,7 +16,7 @@ async def get_onsale(onsale_id) -> OnsaleOutSchema:
 
 
 async def search_onsale_by_name(onsale_name: str):
-    onsales = await MedicineOnsale.filter(Mid_name__icontains=onsale_name)
+    onsales = await MedicineOnsale.filter(Mid__name__icontains=onsale_name)
     return [await OnsaleOutSchema.from_queryset_single(MedicineOnsale.get(id=onsale.id)) for onsale in onsales]
 
 
@@ -69,4 +69,11 @@ async def delete_onsales_by_pharmacy(pharmacy_id) -> Status: # new: delete curre
         await onsale.delete()
     return Status(message="MedicineOnsale deleted successfully.")
         
+
+async def check_onsale_exists(Mid: int) -> bool:
+    try:
+        count = await MedicineOnsale.filter(Mid_id=Mid).count()
+        return count > 0
+    except DoesNotExist:
+        raise HTTPException(status_code=404, detail=f"medicine id {Mid} not found")
     

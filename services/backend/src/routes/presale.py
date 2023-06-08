@@ -70,13 +70,28 @@ async def get_presale_by_pharmacy(pharmacy_id: int) -> List[PresaleOutSchema]:
         )
     
 
+@router.get(
+    "/presale/exist/{medicine_id}",
+    response_model=bool,
+    dependencies=[Depends(get_current_user)],
+)
+async def check_presale_exists(medicine_id: int) -> bool:
+    try:
+        return await crud.check_presale_exists(medicine_id)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Medicine does not exist",
+        )
+
+
 @router.post(
     "/presales", response_model=PresaleOutSchema, dependencies=[Depends(get_current_user)]
 )
 async def create_presale(
     presale: PresaleInSchema, current_user: UserOutSchema = Depends(get_current_user)
 ) -> PresaleOutSchema:
-    return await crud.create_presale(presale, current_user)
+    return await crud.create_presale(presale)
 
 
 @router.patch(

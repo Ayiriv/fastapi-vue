@@ -70,13 +70,28 @@ async def get_onsale_by_pharmacy(pharmacy_id: int) -> List[OnsaleOutSchema]:
         )
     
 
+@router.get(
+    "/onsale/exist/{medicine_id}",
+    response_model=bool,
+    dependencies=[Depends(get_current_user)],
+)
+async def check_onsale_exists(medicine_id: int) -> bool:
+    try:
+        return await crud.check_onsale_exists(medicine_id)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Medicine does not exist",
+        )
+
+
 @router.post(
     "/onsales", response_model=OnsaleOutSchema, dependencies=[Depends(get_current_user)]
 )
 async def create_onsale(
     onsale: OnsaleInSchema, current_user: UserOutSchema = Depends(get_current_user)
 ) -> OnsaleOutSchema:
-    return await crud.create_onsale(onsale, current_user)
+    return await crud.create_onsale(onsale)
 
 
 @router.patch(
