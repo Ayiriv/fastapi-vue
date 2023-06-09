@@ -14,6 +14,9 @@
       </label>&nbsp;&nbsp;
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="md" v-model="selectedOption"> 药品
+      </label>&nbsp;&nbsp;
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="sp" v-model="selectedOption"> 疗效
       </label>
       <br /><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,6 +49,7 @@
                 <p><strong>药品:</strong>{{ result.Mid.name }}</p>
                 <p><strong>数量:</strong>{{ result.amount }}件</p>
                 <p><strong>价格:</strong>{{ result.price }}元</p>
+                <p><strong>效果:</strong>{{ result.Mid.ingredients.symptom }}</p>
                 <p><strong>店铺名称:</strong>{{ result.Pid.name }}</p>
                 <p><strong>店铺地址:</strong>{{ result.Pid.addr }}</p>
               </div>
@@ -63,6 +67,7 @@
                 <p><strong>药品:</strong>{{ result.Mid.name }}</p>
                 <p><strong>数量:</strong>{{ result.amount }}件</p>
                 <p><strong>价格:</strong>{{ result.price }}元</p>
+                <p><strong>效果:</strong>{{ result.Mid.ingredients.symptom }}</p>
                 <p><strong>到货时间:</strong>{{ result.arrive }}</p>
                 <p><strong>店铺名称:</strong>{{ result.Pid.name }}</p>
                 <p><strong>店铺地址:</strong>{{ result.Pid.addr }}</p>
@@ -118,7 +123,7 @@
       ...mapGetters({pharmacies: 'statePharmacies', onsales: 'stateOnsales', preonsales: 'statePresales'}),
     },
     methods: {
-      ...mapActions(['searchPharmacies', 'searchOnsales', 'searchPresales']),
+      ...mapActions(['searchPharmacies', 'searchOnsales', 'searchPresales', 'searchOnsalesBySymptom', 'searchPresalesBySymptom']),
       async search () {
         this.searchResults = [];
         this.searchResultsOn = [];
@@ -137,6 +142,18 @@
             console.log("click2", this.inputValue);
             await this.searchOnsales(this.inputValue);
             await this.searchPresales(this.inputValue);
+            this.searchResultsOn = this.onsales;
+            this.searchResultsPre = this.preonsales;
+            console.log('s1', this.searchResults);
+            console.log('s2', this.searchResultsSub);
+          } catch (error) {
+            console.log(error);
+          }
+        } else if(this.selectedOption == 'sp'){
+          try {
+            console.log("click3", this.inputValue);
+            await this.searchOnsalesBySymptom(this.inputValue);
+            await this.searchPresalesBySymptom(this.inputValue);
             this.searchResultsOn = this.onsales;
             this.searchResultsPre = this.preonsales;
             console.log('s1', this.searchResults);

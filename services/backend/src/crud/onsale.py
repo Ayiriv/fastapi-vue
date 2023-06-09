@@ -20,6 +20,11 @@ async def search_onsale_by_name(onsale_name: str):
     return [await OnsaleOutSchema.from_queryset_single(MedicineOnsale.get(id=onsale.id)) for onsale in onsales]
 
 
+async def search_onsale_by_symptom(symptom: str):
+    onsales = await MedicineOnsale.filter(Mid__ingredients__symptom__icontains=symptom)
+    return [await OnsaleOutSchema.from_queryset_single(MedicineOnsale.get(id=onsale.id)) for onsale in onsales]
+
+
 async def get_onsale_by_pharmacy(pharmacy_id: int):
     onsales = await MedicineOnsale.filter(Pid_id=pharmacy_id).all()
     return [await OnsaleOutSchema.from_queryset_single(MedicineOnsale.get(id=onsale.id)) for onsale in onsales]

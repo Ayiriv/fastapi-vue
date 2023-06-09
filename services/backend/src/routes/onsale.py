@@ -55,6 +55,21 @@ async def search_onsale_by_name(name: str) -> List[OnsaleOutSchema]:
     
 
 @router.get(
+    "/onsale/search/symptom/{symptom}",
+    response_model=List[OnsaleOutSchema],
+    dependencies=[Depends(get_current_user)],
+)
+async def search_onsale_by_symptom(symptom: str) -> List[OnsaleOutSchema]:
+    try:
+        return await crud.search_onsale_by_symptom(symptom)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Pharmacy does not exist",
+        )
+
+
+@router.get(
     "/onsale/by-pharmacy/{pharmacy_id}",
     response_model=List[OnsaleOutSchema],
     dependencies=[Depends(get_current_user)],

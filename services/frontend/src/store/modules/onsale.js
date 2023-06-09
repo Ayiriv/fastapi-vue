@@ -32,6 +32,11 @@ const actions = {
     commit('setOnsales', data);
     console.log("search", data);
   },
+  async searchOnsalesBySymptom({commit}, symptom) {
+    let {data} = await axios.get(`onsale/search/symptom/${symptom}`);
+    commit('setOnsales', data);
+    console.log("search", data);
+  },
   async getOnsalesByPharmacy({commit}, pharmacy_id) {
     let {data} = await axios.get(`onsale/by-pharmacy/${pharmacy_id}`);
     commit('setMyOnsales', data);

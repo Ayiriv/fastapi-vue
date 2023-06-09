@@ -10,9 +10,12 @@
       <br />
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="ph" v-model="selectedOption"> 药店
-      </label>&nbsp;
+      </label>&nbsp;&nbsp;
       <label class="radio-inline">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="md" v-model="selectedOption"> 药品
+      </label>&nbsp;&nbsp;
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="sp" v-model="selectedOption"> 疗效
       </label>
 
       <br /><br />

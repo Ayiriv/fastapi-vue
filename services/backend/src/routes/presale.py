@@ -55,6 +55,21 @@ async def search_presale_by_name(name: str) -> List[PresaleOutSchema]:
     
 
 @router.get(
+    "/presale/search/symptom/{symptom}",
+    response_model=List[PresaleOutSchema],
+    dependencies=[Depends(get_current_user)],
+)
+async def search_presale_by_symptom(symptom: str) -> List[PresaleOutSchema]:
+    try:
+        return await crud.search_presale_by_symptom(symptom)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404,
+            detail="Pharmacy does not exist",
+        )
+    
+
+@router.get(
     "/presale/by-pharmacy/{pharmacy_id}",
     response_model=List[PresaleOutSchema],
     dependencies=[Depends(get_current_user)],

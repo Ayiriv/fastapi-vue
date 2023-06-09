@@ -20,6 +20,11 @@ async def search_presale_by_name(presale_name: str):
     return [await PresaleOutSchema.from_queryset_single(MedicinePresale.get(id=presale.id)) for presale in presales]
 
 
+async def search_presale_by_symptom(symptom: str):
+    onsales = await MedicinePresale.filter(Mid__ingredients__symptom__icontains=symptom)
+    return [await PresaleOutSchema.from_queryset_single(MedicinePresale.get(id=onsale.id)) for onsale in onsales]
+
+
 async def get_presale_by_pharmacy(pharmacy_id: int):
     presales = await MedicinePresale.filter(Pid_id=pharmacy_id).all()
     return [await PresaleOutSchema.from_queryset_single(MedicinePresale.get(id=presale.id)) for presale in presales]
