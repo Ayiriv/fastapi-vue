@@ -16,7 +16,7 @@
           <label for="addr" class="form-label">地址:</label>
           <input type="text" name="addr" v-model="form.addr" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">保存</button>
       </form>
     </section>
   </template>

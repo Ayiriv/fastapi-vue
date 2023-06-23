@@ -20,7 +20,7 @@
             <label for="arrive" class="form-label">到货日期:</label>
             <input type="datetime-local" name="arrive" v-model="arriveAsDateTimeLocal" class="form-control" />
           </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">保存</button>
       </form>
     </section>
   </template>

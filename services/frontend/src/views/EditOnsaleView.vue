@@ -16,7 +16,7 @@
           <label for="price" class="form-label">价格:</label>
           <input type="number" step="0.01" name="price" v-model="form.price" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">保存</button>
       </form>
     </section>
   </template>
